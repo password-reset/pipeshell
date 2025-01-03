@@ -9,6 +9,15 @@ Param
 		[Parameter(Position = 1, Mandatory = $True)] [Byte] $k
 	)
 
+$psVersion = $PSVersionTable.PSVersion
+if ($psVersion.Major -ge 5) {
+	write-host "ok"
+	# carry on
+} else {
+	Write-Host "PowerShell version is less than 5.0. Current version is: $($psVersion.ToString())"
+	exit
+}
+
 $pipeServer = New-Object System.IO.Pipes.NamedPipeServerStream(
 	$p, 
 	[System.IO.Pipes.PipeDirection]::InOut # burger

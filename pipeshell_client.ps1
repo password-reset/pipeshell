@@ -10,6 +10,15 @@ Param
 
 	)
 
+$psVersion = $PSVersionTable.PSVersion
+if ($psVersion.Major -ge 5) {
+	write-host "ok"
+	# carry on
+} else {
+	Write-Host "PowerShell version is less than 5.0. Current version is: $($psVersion.ToString())"
+	exit
+}
+
 Write-Host "connecting to $p pipe..."
 $pipeClient = New-Object System.IO.Pipes.NamedPipeClientStream(
 	".",
